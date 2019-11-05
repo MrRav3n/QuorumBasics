@@ -28,11 +28,11 @@ class App extends Component {
     async loadAccount() {
         const account = await window.web3.eth.getAccounts();
         this.setState({account: account[0]});
-        const menCount = await this.state.contract.methods.menCout().call();
-        this.setState({menCount: menCount.toString()})
-        for(let i=0; i<menCount; i++) {
-            const person = await this.state.contract.methods.man(i).call();
-            this.setState({man: [...this.state.man, person]});
+        const peopleCount = await this.state.contract.methods.peopleCount().call();
+        this.setState({menCount: peopleCount.toString()})
+        for(let i=0; i<peopleCount; i++) {
+            const person = await this.state.contract.methods.people(i).call();
+            this.setState({people: [...this.state.people, person]});
             console.log(person);
         }
 
@@ -55,7 +55,7 @@ class App extends Component {
         this.state = {
             account: null,
             menCount: 50,
-            man: []
+            people: []
         }
     }
 

@@ -1,7 +1,7 @@
 {
-  "name": "starter-kit",
+  "name": "quorum-test-website",
   "version": "0.1.0",
-  "description": "Starter Kit for react-dapps",
+  "description": "Basic quorum project connected to the website (testing possibilities)",
   "author": "MrRav3n",
   "dependencies": {
     "babel-polyfill": "6.26.0",

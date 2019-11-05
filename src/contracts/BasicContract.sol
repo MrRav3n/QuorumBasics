@@ -1,20 +1,20 @@
 pragma solidity ^0.5.8;
 
 contract BasicContract {
-    uint public menCout;
-    struct Men {
+    uint public peopleCount;
+    struct Person {
         string name;
         uint age;
     }
-    mapping (uint=> Men) public man;
+    mapping (uint=> Person) public people;
     constructor(string memory _name, uint _age) public {
-        man[menCout].name = _name;
-        man[menCout].age = _age;
-        menCout++;
+        people[peopleCount].name = _name;
+        people[peopleCount].age = _age;
+        peopleCount++;
     }
-    function addMen(string memory _name, uint _age) public {
-        man[menCout].name = _name;
-        man[menCout].age = _age;
-        menCout++;
+    function addPerson(string memory _name, uint _age) public {
+        people[peopleCount].name = _name;
+        people[peopleCount].age = _age;
+        peopleCount++;
     }
 }

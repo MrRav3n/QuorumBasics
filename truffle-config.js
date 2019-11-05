@@ -11,7 +11,7 @@ module.exports = {
       gas: 4500000,
       type: "quorum"
     },
-    node3: {
+    node4: {
       host: "127.0.0.1",
       port: 22003, // replace with quorum node port you wish to connect to
       network_id: "*",
