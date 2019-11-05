@@ -29,7 +29,7 @@ class App extends Component {
         const account = await window.web3.eth.getAccounts();
         this.setState({account: account[0]});
         const peopleCount = await this.state.contract.methods.peopleCount().call();
-        this.setState({menCount: peopleCount.toString()})
+        this.setState({peopleCount: peopleCount.toString()})
         for(let i=0; i<peopleCount; i++) {
             const person = await this.state.contract.methods.people(i).call();
             this.setState({people: [...this.state.people, person]});
@@ -49,12 +49,13 @@ class App extends Component {
             console.log("Still not connected");
         }
     }
-
+    async addPerson(name, age) {
+        await this.state.contract.methods.addPerson(name,age).send({from: this.state.account});
+    }
     constructor(props) {
         super(props);
         this.state = {
             account: null,
-            menCount: 50,
             people: []
         }
     }
@@ -63,7 +64,8 @@ class App extends Component {
     return (
       <div>
       <Navbar account={this.state.account} />
-      <h1>{this.state.menCount}</h1>
+      <Main addPerson={this.addPerson.bind(this)} peopleCount = {this.state.peopleCount} people={this.state.people}/>
+
       </div>
     );
   }
