@@ -3,12 +3,13 @@ import Navbar from "./Navbar"
 import './App.css';
 import Web3 from 'web3'
 import Main from './Main'
+import BasicContract from '../abis/BasicContract.json'
 class App extends Component {
 
     async componentWillMount() {
         await this.loadWeb3();
-        await this.loadAccount();
         await this.loadContract();
+        await this.loadAccount();
         window.ethereum.on('accountsChanged', async (accounts)  => {
           await this.loadAccount();
         })
@@ -27,15 +28,34 @@ class App extends Component {
     async loadAccount() {
         const account = await window.web3.eth.getAccounts();
         this.setState({account: account[0]});
+        const menCount = await this.state.contract.methods.menCout().call();
+        this.setState({menCount: menCount.toString()})
+        for(let i=0; i<menCount; i++) {
+            const person = await this.state.contract.methods.man(i).call();
+            this.setState({man: [...this.state.man, person]});
+            console.log(person);
+        }
+
     }
     async loadContract() {
         const networkId = await window.web3.eth.net.getId();
+        const networkData = await BasicContract.networks[networkId];
+        if(networkData) {
+            console.log("Connected");
+            const contract = window.web3.eth.Contract(BasicContract.abi, networkData.address);
+            this.setState({contract});
+            console.log(contract);
+        } else {
+            console.log("Still not connected");
+        }
     }
 
     constructor(props) {
         super(props);
         this.state = {
             account: null,
+            menCount: 50,
+            man: []
         }
     }
 
@@ -43,7 +63,7 @@ class App extends Component {
     return (
       <div>
       <Navbar account={this.state.account} />
-
+      <h1>{this.state.menCount}</h1>
       </div>
     );
   }
