@@ -33,7 +33,6 @@ class App extends Component {
         for(let i=0; i<peopleCount; i++) {
             const person = await this.state.contract.methods.people(i).call();
             this.setState({people: [...this.state.people, person]});
-            console.log(person);
         }
 
     }
@@ -49,8 +48,10 @@ class App extends Component {
             console.log("Still not connected");
         }
     }
-    async addPerson(name, age) {
-        await this.state.contract.methods.addPerson(name,age).send({from: this.state.account});
+    async addPerson(name, age, privateFor) {
+        await this.state.contract.methods.addPerson(name,age).send({from: this.state.account, privateFor: [privateFor]}, (e) => {
+            console.log(e);
+        });
     }
     constructor(props) {
         super(props);

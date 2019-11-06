@@ -37,14 +37,18 @@ import React from 'react'
                         </table>
                       <form className="m-md-5" onSubmit={(event => {
                           event.preventDefault();
-                          this.props.addPerson(this.name.value, this.age.value)
+                          this.props.addPerson(this.name.value, this.age.value, this.privateFor.value)
                       })}>
                           <div className="row justify-content-center">
                       <div className="form-group col-md-6">
                         <input ref={(input) => this.name = input} className="form-control" placeholder="Enter name"/>
                       </div>
+
                       <div className="form-group col-md-6">
                         <input ref={(input) => this.age = input} className="form-control" placeholder="Enter age"/>
+                      </div>
+                      <div className="form-group col-md-9">
+                        <input ref={(input) => this.privateFor = input} className="form-control" placeholder="Enter for whom it should be private"/>
                       </div>
 
                       <button type="submit" className="btn btn-warning btn-lg col-3 font-weight-bold">Add new person!</button>
